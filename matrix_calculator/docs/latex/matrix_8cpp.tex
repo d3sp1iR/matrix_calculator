@@ -1,0 +1,157 @@
+\doxysection{src/matrix.cpp File Reference}
+\hypertarget{matrix_8cpp}{}\label{matrix_8cpp}\index{src/matrix.cpp@{src/matrix.cpp}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structMatrix}{Matrix}} \mbox{\hyperlink{matrix_8cpp_a00b3eed9347d1300084aa9b4b59faa14}{create\+\_\+matrix}} (int rows, int cols)
+\begin{DoxyCompactList}\small\item\em Создает новую матрицу с заданными размерами. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{matrix_8cpp_a4a9db3c0de82f0dd0ada2433b56dfaa4}{free\+\_\+matrix}} (\mbox{\hyperlink{structMatrix}{Matrix}} m)
+\begin{DoxyCompactList}\small\item\em Освобождает память, занятую матрицей. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structMatrix}{Matrix}} \mbox{\hyperlink{matrix_8cpp_a22ddff2afbafb442af6b304fc45da953}{matrix\+\_\+add}} (\mbox{\hyperlink{structMatrix}{Matrix}} a, \mbox{\hyperlink{structMatrix}{Matrix}} b)
+\begin{DoxyCompactList}\small\item\em Складывает две матрицы. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structMatrix}{Matrix}} \mbox{\hyperlink{matrix_8cpp_acb87434bec1e8f89c319be6fd81a131d}{matrix\+\_\+multiply}} (\mbox{\hyperlink{structMatrix}{Matrix}} a, \mbox{\hyperlink{structMatrix}{Matrix}} b)
+\begin{DoxyCompactList}\small\item\em Умножает две матрицы. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{matrix_8cpp_a00b3eed9347d1300084aa9b4b59faa14}\label{matrix_8cpp_a00b3eed9347d1300084aa9b4b59faa14} 
+\index{matrix.cpp@{matrix.cpp}!create\_matrix@{create\_matrix}}
+\index{create\_matrix@{create\_matrix}!matrix.cpp@{matrix.cpp}}
+\doxysubsubsection{\texorpdfstring{create\_matrix()}{create\_matrix()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMatrix}{Matrix}} create\+\_\+matrix (\begin{DoxyParamCaption}\item[{int}]{rows,  }\item[{int}]{cols }\end{DoxyParamCaption})}
+
+
+
+Создает новую матрицу с заданными размерами. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em rows} & Количество строк (должно быть \texorpdfstring{$>$}{>} 0) \\
+\hline
+{\em cols} & Количество столбцов (должно быть \texorpdfstring{$>$}{>} 0) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structMatrix}{Matrix} Структура \doxylink{structMatrix}{Matrix} с выделенной памятью 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & Если rows или cols \texorpdfstring{$<$}{<}= 0 \\
+\hline
+{\em std\+::bad\+\_\+alloc} & Если не удалось выделить память \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyNote}{Note}
+Все элементы матрицы инициализируются нулями 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+Возвращаемую матрицу обязательно освободить \doxylink{matrix_8h_a4a9db3c0de82f0dd0ada2433b56dfaa4}{free\+\_\+matrix()}
+\end{DoxyWarning}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structMatrix}{Matrix}}\ A\ =\ \mbox{\hyperlink{matrix_8cpp_a00b3eed9347d1300084aa9b4b59faa14}{create\_matrix}}(3,\ 3);\ \textcolor{comment}{//\ Создает\ матрицу\ 3x3}}
+
+\end{DoxyCode}
+ \Hypertarget{matrix_8cpp_a4a9db3c0de82f0dd0ada2433b56dfaa4}\label{matrix_8cpp_a4a9db3c0de82f0dd0ada2433b56dfaa4} 
+\index{matrix.cpp@{matrix.cpp}!free\_matrix@{free\_matrix}}
+\index{free\_matrix@{free\_matrix}!matrix.cpp@{matrix.cpp}}
+\doxysubsubsection{\texorpdfstring{free\_matrix()}{free\_matrix()}}
+{\footnotesize\ttfamily void free\+\_\+matrix (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structMatrix}{Matrix}}}]{m }\end{DoxyParamCaption})}
+
+
+
+Освобождает память, занятую матрицей. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em m} & Матрица, память которой нужно освободить \\
+\hline
+\end{DoxyParams}
+\begin{DoxyNote}{Note}
+Безопасна для вызова с уже освобожденной или неинициализированной матрицей 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+После вызова этой функции матрица становится невалидной и не должна использоваться
+\end{DoxyWarning}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\mbox{\hyperlink{structMatrix}{Matrix}}\ A\ =\ \mbox{\hyperlink{matrix_8cpp_a00b3eed9347d1300084aa9b4b59faa14}{create\_matrix}}(2,\ 2);}
+\DoxyCodeLine{\textcolor{comment}{//\ Работа\ с\ матрицей...}}
+\DoxyCodeLine{\mbox{\hyperlink{matrix_8cpp_a4a9db3c0de82f0dd0ada2433b56dfaa4}{free\_matrix}}(A);\ \textcolor{comment}{//\ Освобождаем\ память}}
+
+\end{DoxyCode}
+ \Hypertarget{matrix_8cpp_a22ddff2afbafb442af6b304fc45da953}\label{matrix_8cpp_a22ddff2afbafb442af6b304fc45da953} 
+\index{matrix.cpp@{matrix.cpp}!matrix\_add@{matrix\_add}}
+\index{matrix\_add@{matrix\_add}!matrix.cpp@{matrix.cpp}}
+\doxysubsubsection{\texorpdfstring{matrix\_add()}{matrix\_add()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMatrix}{Matrix}} matrix\+\_\+add (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structMatrix}{Matrix}}}]{a,  }\item[{\mbox{\hyperlink{structMatrix}{Matrix}}}]{b }\end{DoxyParamCaption})}
+
+
+
+Складывает две матрицы. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Первая матрица-\/слагаемое \\
+\hline
+{\em b} & Вторая матрица-\/слагаемое \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structMatrix}{Matrix} Новая матрица -\/ результат сложения 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & Если размеры матриц не совпадают \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyNote}{Note}
+Время выполнения\+: O(rows \texorpdfstring{$\ast$}{*} cols) 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+Размеры матриц должны быть одинаковыми\+: a.\+rows == b.\+rows \&\& a.\+cols == b.\+cols
+\end{DoxyWarning}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ [1\ 2]\ \ \ [5\ 6]\ \ \ [6\ 8]}}
+\DoxyCodeLine{\textcolor{comment}{//\ [3\ 4]\ +\ [7\ 8]\ =\ [10\ 12]}}
+
+\end{DoxyCode}
+ \Hypertarget{matrix_8cpp_acb87434bec1e8f89c319be6fd81a131d}\label{matrix_8cpp_acb87434bec1e8f89c319be6fd81a131d} 
+\index{matrix.cpp@{matrix.cpp}!matrix\_multiply@{matrix\_multiply}}
+\index{matrix\_multiply@{matrix\_multiply}!matrix.cpp@{matrix.cpp}}
+\doxysubsubsection{\texorpdfstring{matrix\_multiply()}{matrix\_multiply()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structMatrix}{Matrix}} matrix\+\_\+multiply (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structMatrix}{Matrix}}}]{a,  }\item[{\mbox{\hyperlink{structMatrix}{Matrix}}}]{b }\end{DoxyParamCaption})}
+
+
+
+Умножает две матрицы. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Первая матрица размером M×N \\
+\hline
+{\em b} & Вторая матрица размером N×K \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structMatrix}{Matrix} Новая матрица -\/ результат умножения, размером M×K 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & Если количество столбцов матрицы A не равно количеству строк матрицы B \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyNote}{Note}
+Временная сложность\+: O(\+M \texorpdfstring{$\ast$}{*} N \texorpdfstring{$\ast$}{*} K) 
+\end{DoxyNote}
+\begin{DoxyWarning}{Warning}
+Матрицы должны быть совместимы\+: a.\+cols == b.\+rows
+\end{DoxyWarning}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ [1\ 2]\ \ \ [5\ 6]\ \ \ [19\ 22]}}
+\DoxyCodeLine{\textcolor{comment}{//\ [3\ 4]\ ×\ [7\ 8]\ =\ [43\ 50]}}
+
+\end{DoxyCode}
+ 
