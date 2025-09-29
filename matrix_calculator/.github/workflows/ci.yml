@@ -1,4 +1,5 @@
-name: Matrix CI
+name: Matrix Calculator CI
+
 on: [push, pull_request]
 
 jobs:
@@ -6,7 +7,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Build and Test
+    
+    - name: Install dependencies
       run: |
+        sudo apt-get update
+        sudo apt-get install -y g++ doxygen graphviz valgrind
+        
+    - name: Build application
+      run: |
+        g++ -o matrix_app src/matrix.cpp src/main.cpp
         g++ -o test_app src/matrix.cpp src/test.cpp
-        ./test_app
+        
+    - name: Run tests
+      run: ./test_app
+      
+    - name: Check memory leaks
+      run: |
+        valgrind --leak-check=full --error-exitcode=1 ./test_app
