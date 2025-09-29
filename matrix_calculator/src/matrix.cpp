@@ -1,3 +1,8 @@
+#include "matrix.h"
+#include <iostream>
+#include <iomanip>
+#include <stdexcept>
+
 Matrix create_matrix(int rows, int cols) {
     // 1. Проверка корректности размеров
     if (rows <= 0 || cols <= 0) {
@@ -86,4 +91,62 @@ Matrix matrix_multiply(Matrix a, Matrix b) {
         }
     }
     return result;
+}
+
+void print_matrix(Matrix m) {
+    if (m.data == nullptr || m.rows <= 0 || m.cols <= 0) {
+        std::cout << "[Empty matrix]" << std::endl;
+        return;
+    }
+
+    std::cout << std::fixed << std::setprecision(2);
+
+    const int MAX_ROWS_TO_SHOW = 10;
+    const int MAX_COLS_TO_SHOW = 8;
+    bool show_summary = (m.rows > MAX_ROWS_TO_SHOW || m.cols > MAX_COLS_TO_SHOW);
+    int rows_to_show = show_summary ? MAX_ROWS_TO_SHOW : m.rows;
+    int cols_to_show = show_summary ? MAX_COLS_TO_SHOW : m.cols;
+
+    for (int i = 0; i < rows_to_show; i++) {
+        if (show_summary && i == MAX_ROWS_TO_SHOW / 2 && m.rows > MAX_ROWS_TO_SHOW) {
+            std::cout << "[...";
+            for (int j = 0; j < cols_to_show - 2; j++) {
+                std::cout << "      ";
+            }
+            std::cout << "...]" << std::endl;
+            continue;
+        }
+
+        std::cout << "[";
+        for (int j = 0; j < cols_to_show; j++) {
+            if (show_summary && j == MAX_COLS_TO_SHOW / 2 && m.cols > MAX_COLS_TO_SHOW) {
+                std::cout << " ... ";
+                continue;
+            }
+            std::cout << std::setw(6) << m.data[i][j];
+            if (j < cols_to_show - 1) {
+                std::cout << " ";
+            }
+        }
+        std::cout << "]";
+
+        if (show_summary && m.cols > MAX_COLS_TO_SHOW) {
+            std::cout << " ...";
+        }
+        std::cout << std::endl;
+    }
+
+    if (show_summary && m.rows > MAX_ROWS_TO_SHOW) {
+        std::cout << "[...";
+        for (int j = 0; j < std::min(cols_to_show, m.cols); j++) {
+            std::cout << " ... ";
+        }
+        std::cout << "...]" << std::endl;
+    }
+
+    if (show_summary) {
+        std::cout << "Matrix " << m.rows << "×" << m.cols 
+                  << " (showing first " << rows_to_show << "×" << cols_to_show << ")"
+                  << std::endl;
+    }
 }
