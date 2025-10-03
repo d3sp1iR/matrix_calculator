@@ -152,4 +152,24 @@ void print_matrix(Matrix m);
  */
 Matrix matrix_from_array(double* data, int rows, int cols);
 
+/**
+ * @brief Проверяет равенство двух матриц с заданной точностью.
+ *
+ * @param a Первая матрица для сравнения
+ * @param b Вторая матрица для сравнения  
+ * @param tolerance Допустимая погрешность для сравнения элементов
+ * @return true Если матрицы имеют одинаковые размеры и все элементы равны в пределах tolerance
+ * @return false Если матрицы имеют разные размеры или элементы отличаются больше чем на tolerance
+ *
+ * @code
+ * Matrix A = create_matrix(2, 2);
+ * Matrix B = create_matrix(2, 2);
+ * // Заполнение матриц...
+ * if (matrix_equals(A, B, 0.001)) {
+ *     std::cout << "Матрицы равны" << std::endl;
+ * }
+ * @endcode
+ */
+bool matrix_equals(Matrix a, Matrix b, double tolerance);
+
 #endif

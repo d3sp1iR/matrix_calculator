@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include <stdexcept>
+#include <cmath>
 
 Matrix create_matrix(int rows, int cols) {
     // 1. Проверка корректности размеров
@@ -149,4 +150,28 @@ void print_matrix(Matrix m) {
                   << " (showing first " << rows_to_show << "×" << cols_to_show << ")"
                   << std::endl;
     }
+}
+
+bool matrix_equals(Matrix a, Matrix b, double tolerance) {
+    // Проверка на одинаковые размеры
+    if (a.rows != b.rows || a.cols != b.cols) {
+        return false;
+    }
+    
+    // Проверка на nullptr
+    if (a.data == nullptr || b.data == nullptr) {
+        return a.data == b.data; // Обе должны быть nullptr или обе не nullptr
+    }
+    
+    // Поэлементное сравнение с учетом погрешности
+    for (int i = 0; i < a.rows; i++) {
+        for (int j = 0; j < a.cols; j++) {
+            double diff = std::abs(a.data[i][j] - b.data[i][j]);
+            if (diff > tolerance) {
+                return false;
+            }
+        }
+    }
+    
+    return true;
 }
